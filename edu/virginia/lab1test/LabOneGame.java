@@ -21,7 +21,7 @@ public class LabOneGame extends Game{
 	public LabOneGame() {
 		super("Lab One Test Game", 500, 300);
 	}
-	
+	Sprite pug = new Sprite("Pug", "Pablo");
 	/**
 	 * Engine will automatically call this update method once per frame and pass to us
 	 * the set of keys (as strings) that are currently being pressed down
