@@ -42,9 +42,10 @@ public class Prototype extends Game implements MouseListener{
 	Sprite platform1= new Sprite("platform","platform.png",0,0,0,0,0,1,1);
 	Sprite platform2= new Sprite("platform","platform.png",0,0,0,0,0,1,1);
 	Sprite platform3= new Sprite("platform","platform.png",0,0,0,0,0,1,1);
-	//Sprite platform4= new Sprite("platform","platform.png",0,0,0,0,0,1,1);
+	Sprite platform4= new Sprite("platform","platform.png",0,0,0,0,0,1,1);
 	//Sprite platform5= new Sprite("platform","platform.png",0,0,0,0,0,1,1);
 	Sprite rock1= new Sprite("rock1", "rock.png",0,0,0,0,0,1,1);
+	Sprite fireball=new Sprite("fireball", "fireball.png", 0,0,0,0,0,1,1);
 	double tdelta=0;
 	double tstart=0;
 	double tend=0;
@@ -57,17 +58,22 @@ public class Prototype extends Game implements MouseListener{
 	boolean on=false;
 	boolean off=true;
 	boolean menuon=false;
-	Menu buymenu=new Menu();
+	//Menu buymenu=new Menu();
 	Sprite door= new Sprite("door","door.png",0,0,0,0,0,1,1);
-
+	boolean fire=true;
 	public Prototype() {
-		super("Prototype", 800, 800);
+		super("Prototype", 1000, 800);
 		super.getMainFrame().addMouseListener(this);
-		super.getMainFrame().add(buymenu);
+		door.setScaleX(.1);
+		door.setScaleY(.1);
+		door.setVisible(false);
 		//mario.setPosition(200, 500);
 		mario.setScaleX(0.6);
 		mario.setScaleY(0.6);
 		//mario.setAlpha(.11);
+		platform4.setScaleX(.1);
+		platform4.setScaleY(.2);
+		platform4.setPosition(300,666);
 		time = new GameClock();
 		mario.getFrames().add("Sonic_standby1.png");
 		mario.getFrames().add("Sonic_standby2.png");
@@ -81,10 +87,10 @@ public class Prototype extends Game implements MouseListener{
 		mario.getFrames().add("Sonic_run5.png");
 		mario.getFrames().add("Sonic_run1.png");
 		super.addChild(door);
-		
+		door.setPosition(400,600);
 		
 	//	marios.animate(TweenableParam.ALPHA, 0, 1, 5000);
-		jugg.add(marios);
+		//jugg.add(marios);
 		rupee1.getFrames().add("rupee1.png");
 		rupee1.getFrames().add("rupee2.png");
 		rupee1.getFrames().add("rupee6.png");
@@ -108,8 +114,8 @@ public class Prototype extends Game implements MouseListener{
 		platform1.setPosition(100, 676);
 		super.addChild(platform2);
 		super.addChild(platform3);
-		platform1.setScaleX(.5);
-		//super.addChild(platform4);
+		platform1.setScaleX(.8);
+		super.addChild(platform4);
 		//super.addChild(platform5);
 		platform3.setScaleY(.5);
 		////platform4.setScaleY(.5);
@@ -131,6 +137,8 @@ public class Prototype extends Game implements MouseListener{
 		offswitch.setPosition(520, 629);
 		onswitch.setPosition(420,629);
 		platform3.setAlpha(.3);
+		super.addChild(fireball);
+		fireball.setVisible(false);
 	}
 	@Override
 	public void draw(Graphics g){
@@ -177,7 +185,27 @@ public class Prototype extends Game implements MouseListener{
 	public void update(ArrayList<Integer> pressedKeys){
 		super.update(pressedKeys);
 		//tend=time.getElapsedTime();
-		
+		/*if(pressedKeys.contains(KeyEvent.VK_SHIFT)){
+			fireball.getPosition().setLocation(mario.getPosition().getX(), mario.getPosition().getY());
+			if(fire=true){
+				fireball.setVisible(true);
+				GameClock c= new GameClock();
+				if(c.getElapsedTime()<4000){
+					
+					fireball.setPosition(fireball.getPosition().getX()+5,fireball.getPosition().getY());
+				
+				}
+				
+			}
+		}
+		*/
+		/*if(pressedKeys.contains(KeyEvent.VK_SHIFT)){
+			fire=true;
+		}
+		*/
+		if(rock1.collidesWith(platform4)){
+			door.setVisible(true);
+		}
 		if(mario.collidesWith(platform1) &&platform1.getAlpha()>0){
 			
 			numJumps=1;
@@ -341,7 +369,7 @@ public class Prototype extends Game implements MouseListener{
 			//}
 			
 			if(y2==1){
-			rock1.setPosition(mario.getPosition().getX(), mario.getPosition().getY()+60);
+			rock1.setPosition(mario.getPosition().getX(), mario.getPosition().getY()+50);
 			y2=0;
 			}
 		}

@@ -81,7 +81,8 @@ public class DisplayObjectContainer extends DisplayObject {
 		//Apply MY transformations to my children
 		for(DisplayObjectContainer child: children){
 			if(child!=null){
-				child.draw(g);
+				if(child.isVisible()){
+				child.draw(g);}
 			}
 		}
 		/*for(child in children)		//Draw each of my children  
