@@ -39,9 +39,9 @@ public class HitboxDemo extends Game{
 			mario.getPosition().setLocation(mario.getPosition().getX()+5, mario.getPosition().getY());
 			}
 		
-		if(pressedKeys.contains(KeyEvent.VK_A)) 	mario.getPosition().setLocation(getPosition().getX()-5,getPosition().getY());
-		if(pressedKeys.contains(KeyEvent.VK_W)) 	mario.getPosition().setLocation(getPosition().getX(),getPosition().getY()-5);
-		if(pressedKeys.contains(KeyEvent.VK_S)) 	mario.getPosition().setLocation(getPosition().getX(),getPosition().getY()+5);
+		if(pressedKeys.contains(KeyEvent.VK_A)) 	mario.getPosition().setLocation(mario.getPosition().getX()-5,getPosition().getY());
+		if(pressedKeys.contains(KeyEvent.VK_W)) 	mario.getPosition().setLocation(mario.getPosition().getX(),getPosition().getY()-5);
+		if(pressedKeys.contains(KeyEvent.VK_S)) 	mario.getPosition().setLocation(mario.getPosition().getX(),getPosition().getY()+5);
 		
 		if(pressedKeys.contains(KeyEvent.VK_A)){
 			
@@ -56,10 +56,10 @@ public class HitboxDemo extends Game{
 		if(pressedKeys.contains(KeyEvent.VK_X)) 	mario.setRotation(getRotation()-.2);
 		
 		
-		if(pressedKeys.contains(KeyEvent.VK_RIGHT))	mario2.getPosition().setLocation(getPosition().getX()+5,getPosition().getY());
-		if(pressedKeys.contains(KeyEvent.VK_LEFT)) 	mario2.getPosition().setLocation(getPosition().getX()-5,getPosition().getY());
-		if(pressedKeys.contains(KeyEvent.VK_UP)) 	mario2.getPosition().setLocation(getPosition().getX(),getPosition().getY()-5);
-		if(pressedKeys.contains(KeyEvent.VK_DOWN)) 	mario2.getPosition().setLocation(getPosition().getX(),getPosition().getY()+5);
+		if(pressedKeys.contains(KeyEvent.VK_RIGHT))	mario2.getPosition().setLocation(mario2.getPosition().getX()+5,getPosition().getY());
+		if(pressedKeys.contains(KeyEvent.VK_LEFT)) 	mario2.getPosition().setLocation(mario2.getPosition().getX()-5,getPosition().getY());
+		if(pressedKeys.contains(KeyEvent.VK_UP)) 	mario2.getPosition().setLocation(mario2.getPosition().getX(),getPosition().getY()-5);
+		if(pressedKeys.contains(KeyEvent.VK_DOWN)) 	mario2.getPosition().setLocation(mario2.getPosition().getX(),getPosition().getY()+5);
 		
 		if(pressedKeys.contains(KeyEvent.VK_M))		mario2.setRotation(mario.getRotation()-.05);
 		if(pressedKeys.contains(KeyEvent.VK_N)) 	mario2.setRotation(mario.getRotation()+.05);
@@ -76,7 +76,7 @@ public class HitboxDemo extends Game{
 		Graphics2D g2d = (Graphics2D)g;
 		//draw mario's hitboxes to test
 		g2d.draw(mario.getGlobalHitbox());
-		g2d.draw(mario2.getLocalHitbox());
+		g2d.draw(mario2.getGlobalHitbox());
 		
 	}
 

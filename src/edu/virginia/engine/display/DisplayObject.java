@@ -94,7 +94,11 @@ public class DisplayObject extends EventDispatcher {
 	protected AffineTransform getGlobalTransform(){
 		AffineTransform at;
 		if(this.parent == null) at = new AffineTransform();
-		else at = this.getParent().getGlobalTransform();
+		else{
+			at = this.getParent().getGlobalTransform();
+			at.translate(this.parent.getPivotPoint().getX(), this.parent.getPivotPoint().getY());
+		}
+		
 		
 		at.concatenate(getLocalTransform());
 		return at;
