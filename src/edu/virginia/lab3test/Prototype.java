@@ -58,7 +58,7 @@ public class Prototype extends Game implements MouseListener{
 	boolean on=false;
 	boolean off=true;
 	boolean menuon=false;
-	//Menu buymenu=new Menu();
+	Menu buymenu=new Menu("Buy Menu");
 	Sprite door= new Sprite("door","door.png",0,0,0,0,0,1,1);
 	boolean fire=true;
 	public Prototype() {
@@ -88,6 +88,11 @@ public class Prototype extends Game implements MouseListener{
 		mario.getFrames().add("Sonic_run1.png");
 		super.addChild(door);
 		door.setPosition(400,600);
+		buymenu.addItem("Jump", 1);
+		buymenu.addItem("Interact", 2);
+		buymenu.addItem("JetPack", 35);
+		buymenu.addItem("Sword", 50);
+		buymenu.addItem("Fireball", 50);
 		
 	//	marios.animate(TweenableParam.ALPHA, 0, 1, 5000);
 		//jugg.add(marios);
@@ -282,6 +287,7 @@ public class Prototype extends Game implements MouseListener{
 						mario.getPosition().setLocation(mario.getPosition().getX()-5,mario.getPosition().getY());
 					}
 					*/
+			
 					
 				
 			}
