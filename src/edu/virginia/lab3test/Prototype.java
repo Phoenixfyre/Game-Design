@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import edu.virginia.engine.display.AnimatedSprite;
+import edu.virginia.engine.display.Camera;
 import edu.virginia.engine.display.Game;
 import edu.virginia.engine.display.Menu;
 import edu.virginia.engine.display.PhysicsSprite;
@@ -30,7 +31,9 @@ import edu.virginia.engine.util.SoundManager;
 public class Prototype extends Game implements MouseListener{
 	Protagonist mario = new Protagonist("Mario", "Sonic_standby1.png",0,0,0,0,0,1,1);
 	AnimatedSprite rupee1= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
+	Sprite platform1= new Sprite("platform","platform.png",0,0,0,0,0,1,1);
 	Tween marios=new Tween(mario);
+	Tween plat= new Tween(platform1);
 	TweenJuggler jugg=new TweenJuggler();
 	int y2=0;
 	Tween rupee= new Tween(rupee1);
@@ -39,14 +42,17 @@ public class Prototype extends Game implements MouseListener{
 	TweenEvent alph1 = new TweenEvent("alph1", this);
 	TweenEvent alph2 = new TweenEvent("alph2",this);
 	TweenEvent size= new TweenEvent("size",this);
-	Sprite platform1= new Sprite("platform","platform.png",0,0,0,0,0,1,1);
-	Sprite platform2= new Sprite("platform","platform.png",0,0,0,0,0,1,1);
-	Sprite platform3= new Sprite("platform","platform.png",0,0,0,0,0,1,1);
-	Sprite platform4= new Sprite("platform","platform.png",0,0,0,0,0,1,1);
+	
+	Camera cam = new Camera();
+	Sprite platform2= new Sprite("platform1","platform.png",0,0,0,0,0,1,1);
+	Sprite platform3= new Sprite("platform2","platform.png",0,0,0,0,0,1,1);
+	Sprite platform4= new Sprite("platform3","platform.png",0,0,0,0,0,1,1);
+	
 	//Sprite platform5= new Sprite("platform","platform.png",0,0,0,0,0,1,1);
 	Sprite rock1= new Sprite("rock1", "rock.png",0,0,0,0,0,1,1);
 	Sprite fireball=new Sprite("fireball", "fireball.png", 0,0,0,0,0,1,1);
 	double tdelta=0;
+	int bb=0;
 	double tstart=0;
 	double tend=0;
 	int jumpcounter;
@@ -58,12 +64,23 @@ public class Prototype extends Game implements MouseListener{
 	boolean on=false;
 	boolean off=true;
 	boolean menuon=false;
-	Menu buymenu=new Menu("Buy Menu");
+	//Menu buymenu=new Menu("Buy Menu");
 	Sprite door= new Sprite("door","door.png",0,0,0,0,0,1,1);
 	boolean fire=true;
+	Rectangle j= new Rectangle();
+	Rectangle b= new Rectangle();
+	Rectangle q= new Rectangle();
+	Rectangle d= new Rectangle();
+	Rectangle a= new Rectangle();
+	boolean destroy=false;
 	public Prototype() {
 		super("Prototype", 1000, 800);
 		super.getMainFrame().addMouseListener(this);
+		b.setRect(900,200, 100, 100);
+		q.setRect(700,200,100,100);
+		d.setRect(500,200,100,100);
+		a.setRect(100,200,100,100);
+		j.setRect(300,200,100,100);
 		door.setScaleX(.1);
 		door.setScaleY(.1);
 		door.setVisible(false);
@@ -88,14 +105,16 @@ public class Prototype extends Game implements MouseListener{
 		mario.getFrames().add("Sonic_run1.png");
 		super.addChild(door);
 		door.setPosition(400,600);
-		buymenu.addItem("Jump", 1);
+		/*buymenu.addItem("Jump", 1);
 		buymenu.addItem("Interact", 2);
 		buymenu.addItem("JetPack", 35);
 		buymenu.addItem("Sword", 50);
 		buymenu.addItem("Fireball", 50);
+		*/
 		
 	//	marios.animate(TweenableParam.ALPHA, 0, 1, 5000);
 		//jugg.add(marios);
+		
 		rupee1.getFrames().add("rupee1.png");
 		rupee1.getFrames().add("rupee2.png");
 		rupee1.getFrames().add("rupee6.png");
@@ -111,6 +130,7 @@ public class Prototype extends Game implements MouseListener{
 		super.addChild(mario);
 		
 		super.addChild(platform1);
+		
 		//super.addChild(offswitch);
 		//super.addChild(onswitch);
 		onswitch.setVisible(false);
@@ -149,20 +169,19 @@ public class Prototype extends Game implements MouseListener{
 	public void draw(Graphics g){
 		//g.drawString("Health Left:", 670, 30);
 		g.drawString("total coins ="+ mario.getTotalCoins(), 20, 20);
+		g.drawString("Jump=5coins",(int)q.getCenterX()-40, (int)q.getCenterY());
+		g.drawString("JetPack=5coins",(int)a.getCenterX()-40, (int)a.getCenterY());
+		g.drawString("Interact=5coins",(int)j.getCenterX()-40, (int)j.getCenterY());
+		g.drawString("EndDisapear=5coins",(int)d.getCenterX()-40, (int)d.getCenterY());
 		
-		if(menuon){
-			super.removeAllChildren();
-		}
-		else{
-			super.addChild(mario);
-			super.addChild(platform1);
-			super.addChild(platform2);
-			super.addChild(platform3);
-		}
-			
+		Graphics2D g2d = (Graphics2D)g;
+		g2d.draw(q);;
+		g2d.draw(a);
+	
+		g2d.draw(d);
+		g2d.draw(j);
 		
-		
-		
+		cam.draw(g);
 		super.draw(g);
 		
 		if(onswitch.isVisible()){
@@ -177,9 +196,8 @@ public class Prototype extends Game implements MouseListener{
 		rupee1.draw(g);
 		}
 		
-		Graphics2D g2d = (Graphics2D)g;
 		
-		g2d.draw(mario.getGlobalHitbox());
+		//g2d.draw(mario.getGlobalHitbox());
 		//g2d.draw(rupee1.getGlobalHitbox());
 		
 		
@@ -189,6 +207,7 @@ public class Prototype extends Game implements MouseListener{
 	@Override
 	public void update(ArrayList<Integer> pressedKeys){
 		super.update(pressedKeys);
+		
 		//tend=time.getElapsedTime();
 		/*if(pressedKeys.contains(KeyEvent.VK_SHIFT)){
 			fireball.getPosition().setLocation(mario.getPosition().getX(), mario.getPosition().getY());
@@ -264,11 +283,13 @@ public class Prototype extends Game implements MouseListener{
 		}
 		if(mario.getPosition().getY()>=750){
 		mario.setPosition(200,600);
+		cam.setX(0);
+		cam.setY(0);
 		}
 		if(pressedKeys.contains(KeyEvent.VK_D)){
-			
+			cam.setX(cam.getX()+5);
 			mario.update(pressedKeys);
-			if(rupee1.isVisible()){
+			
 				mario.play("run");
 				if(mario.getPosition().getX()<711){
 					mario.setVelX(2);
@@ -290,7 +311,7 @@ public class Prototype extends Game implements MouseListener{
 			
 					
 				
-			}
+			
 			//xcount+=5;
 		}
 		else{
@@ -303,7 +324,7 @@ public class Prototype extends Game implements MouseListener{
 		}
 		if(pressedKeys.contains(KeyEvent.VK_A)){
 			//if(mario.getAlpha()==1 && x1==1){
-			if(rupee1.isVisible()){
+			cam.setX(cam.getX()-5);
 				mario.play("run");
 				if(mario.getPosition().getX()>-20){
 					//System.out.println(mario.getPosition().getX());
@@ -324,7 +345,7 @@ public class Prototype extends Game implements MouseListener{
 						mario.getPosition().setLocation(mario.getPosition().getX()+5,mario.getPosition().getY());
 					}*/
 			
-				}}
+				}
 			}
 			//xcount-=5;
 		
@@ -335,7 +356,7 @@ public class Prototype extends Game implements MouseListener{
 		if(pressedKeys.contains(KeyEvent.VK_SPACE)){
 			//if(mario.getAlpha()==1 && x1==1){
 			if(mario.isJumping()|| mario.isJetpacking()){
-			if(rupee1.isVisible()){
+			
 				//snd.PlaySoundEffect("jump");
 				mario.play("run");
 				if(mario.getPosition().getY()>0){
@@ -343,6 +364,7 @@ public class Prototype extends Game implements MouseListener{
 					if(numJumps>0){
 						if(jumpcounter!=mario.getJumpHeight()){
 						mario.setPosition(mario.getPosition().getX(), mario.getPosition().getY()-5);
+						cam.setY(cam.getY()-1);
 						mario.setVelY(-1);
 						jumpcounter+=1;
 						}
@@ -351,13 +373,15 @@ public class Prototype extends Game implements MouseListener{
 							jumpcounter=0;
 							if(mario.isJetpacking()){
 							mario.setVelY(2);
+							cam.setY(cam.getY()+1);
 							}
 							else{
 								mario.setVelY(5);
+								cam.setY(cam.getY()+1);
 							}
 						}
 					}
-					}
+					
 				}
 			}
 			}
@@ -365,7 +389,11 @@ public class Prototype extends Game implements MouseListener{
 		
 		if(!pressedKeys.contains(KeyEvent.VK_SPACE)){
 			mario.setVelY(5);
+			
 			numJumps=0;
+		}
+		if(numJumps==0){
+			
 		}
 		if(!pressedKeys.contains(KeyEvent.VK_F)){
 			x1=1;
@@ -380,6 +408,7 @@ public class Prototype extends Game implements MouseListener{
 			}
 		}
 		if(pressedKeys.contains(KeyEvent.VK_F)){
+			if(mario.interact()==true){
 			if(x1==1){
 				if(mario.collidesWith(offswitch)){
 					platform3.setAlpha(1);
@@ -408,7 +437,10 @@ public class Prototype extends Game implements MouseListener{
 					y2=1;
 				}
 			}
-		}}
+		}
+			}
+		jugg.update();
+		}
 	
 	
 	public static void main(String[] args) {
@@ -421,6 +453,40 @@ public class Prototype extends Game implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		int mx=e.getX();
+		int my=e.getY();
+	/*	g.drawString("Jump=5coins",(int)q.getCenterX()-40, (int)q.getCenterY());
+		g.drawString("JetPack=5coins",(int)a.getCenterX()-40, (int)a.getCenterY());
+		g.drawString("Interact=5coins",(int)j.getCenterX()-40, (int)j.getCenterY());
+		g.drawString("EndDisapear=5coins",(int)d.getCenterX()-40, (int)d.getCenterY());*/
+		if(mx>q.getX() && mx<q.getX()+100 && my>q.getY() &&my<q.getY()+150){
+			System.out.println();
+
+			mario.setJump(true);
+			mario.minusTotalCoins(5);
+			
+		}	
+		
+		if(mx>a.getX() && mx<a.getX()+100 ){
+			System.out.println("hit");
+			mario.setJetpack(true);
+			mario.minusTotalCoins(5);
+			
+		}		
+		if((mx>d.getX() && mx<d.getX()+100 && my>d.getY() &&my<d.getY()+150)){
+			if(bb==0){
+				plat.animate(TweenableParam.ALPHA, .9, .05, 2000);
+				
+				jugg.add(plat);
+			mario.minusTotalCoins(5);
+			bb++;
+			}
+		}
+		if((mx>j.getX() && mx<j.getX()+100 && my>j.getY() &&my<j.getY()+150)){
+			mario.setinteract(true);
+			mario.minusTotalCoins(5);
+			
+		}
 		
 	}
 
