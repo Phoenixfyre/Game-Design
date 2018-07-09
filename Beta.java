@@ -2,6 +2,7 @@ package edu.virginia.lab3test;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
@@ -29,72 +30,58 @@ import edu.virginia.engine.tweening.TweenableParam;
 import edu.virginia.engine.util.GameClock;
 import edu.virginia.engine.util.SoundManager;
 public class Beta extends Game implements MouseListener{
-	Protagonist mario = new Protagonist("Mario", "Sonic_standby1.png",0,0,0,0,0,1,1);
+	public Protagonist mario = new Protagonist("Mario", "Sonic_standby1.png",0,0,0,0,0,1,1);
 	AnimatedSprite rupee1= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
-	int level =1;
-	boolean reset= false;
 	Sprite platform1= new Sprite("platform","platform.png",0,0,0,0,0,1,1);
 	Tween marios=new Tween(mario);
-	Tween plat= new Tween(platform1);
-	TweenJuggler jugg=new TweenJuggler();
+	public Tween plat= new Tween(platform1);
+	public TweenJuggler jugg=new TweenJuggler();
 	int y2=0;
 	Tween rupee= new Tween(rupee1);
 	Sprite onswitch= new Sprite("On", "switch-lever-on.png",0,0,0,0,0,1,1);
 	Sprite onswitch1= new Sprite("On", "switch-lever-on.png",0,0,0,0,0,1,1);
 	Sprite onswitch2= new Sprite("On", "switch-lever-on.png",0,0,0,0,0,1,1);
 	Sprite onswitch3= new Sprite("On", "switch-lever-on.png",0,0,0,0,0,1,1);
+	Sprite onswitch4 = new Sprite("On", "switch-lever-on.png",0,0,0,0,0,1,1);
+	Sprite onswitch5 = new Sprite("On", "switch-lever-on.png",0,0,0,0,0,1,1);
 	Sprite offswitch= new Sprite("off", "switch-level-off.png",0,0,0,0,0,1,1);
 	Sprite offswitch1= new Sprite("off", "switch-level-off.png",0,0,0,0,0,1,1);
 	Sprite offswitch2= new Sprite("off", "switch-level-off.png",0,0,0,0,0,1,1);
-	AnimatedSprite rupee2= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
-	AnimatedSprite rupee3= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
-	AnimatedSprite rupee4= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
-	AnimatedSprite rupee5= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
-	AnimatedSprite rupee6= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
-	AnimatedSprite rupee7= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
-	AnimatedSprite rupee8= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
-	AnimatedSprite rupee9= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
-	AnimatedSprite rupee10= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
-	AnimatedSprite rupee11= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
-
 	Sprite offswitch3= new Sprite("off", "switch-level-off.png",0,0,0,0,0,1,1);
+	Sprite offswitch4= new Sprite("off", "switch-level-off.png",0,0,0,0,0,1,1);
+	Sprite offswitch5= new Sprite("off", "switch-level-off.png",0,0,0,0,0,1,1);
 
 	TweenEvent alph1 = new TweenEvent("alph1", this);
 	TweenEvent alph2 = new TweenEvent("alph2",this);
 	TweenEvent size= new TweenEvent("size",this);
 	
 	Camera cam = new Camera();
-	//platforms for first level
 	Sprite platform2= new Sprite("platform1","platform.png",0,0,0,0,0,1,1);
 	Sprite platform3= new Sprite("platform2","platform.png",0,0,0,0,0,1,1);
 	Sprite platform4= new Sprite("platform3","platform.png",0,0,0,0,0,1,1);
-	Sprite platform5= new Sprite("platform1","platform.png",0,0,0,0,0,1,1);
-	Sprite platform6= new Sprite("platform1","platform.png",0,0,0,0,0,1,1);
-	Sprite platform7= new Sprite("platform1","platform.png",0,0,0,0,0,1,1);
-	Sprite platform8= new Sprite("platform1","platform.png",0,0,0,0,0,1,1);
-	//Platforms for second level
-	Sprite platform9= new Sprite("platform1","platform.png",0,0,0,0,0,1,1);
-	Sprite platform10= new Sprite("platform1","platform.png",0,0,0,0,0,1,1);
-	Sprite platform11= new Sprite("platform1","platform.png",0,0,0,0,0,1,1);
-	Sprite platform12= new Sprite("platform1","platform.png",0,0,0,0,0,1,1);
-	Sprite platform13= new Sprite("platform1","platform.png",0,0,0,0,0,1,1);
-	Sprite platform14= new Sprite("platform1","platform.png",0,0,0,0,0,1,1);
-	Sprite platform15= new Sprite("platform1","platform.png",0,0,0,0,0,1,1);
-	Sprite platform16= new Sprite("platform1","platform.png",0,0,0,0,0,1,1);
-	Sprite platform17= new Sprite("platform1","platform.png",0,0,0,0,0,1,1);
+	Sprite platform5= new Sprite("platform4","platform.png",0,0,0,0,0,1,1);
+	Sprite platform6= new Sprite("platform5","platform.png",0,0,0,0,0,1,1);
+	Sprite platform7= new Sprite("platform6","platform.png",0,0,0,0,0,1,1);
+	Sprite platform8= new Sprite("platform7","platform.png",0,0,0,0,0,1,1);
+	Sprite platform9= new Sprite("platform8","platform.png",0,0,0,0,0,1,1);
+	Sprite platform10= new Sprite("platform9","platform.png",0,0,0,0,0,1,1);
+	Sprite platform11= new Sprite("platform10","platform.png",0,0,0,0,0,1,1);
+	Sprite platform12= new Sprite("platform11","platform.png",0,0,0,0,0,1,1);
+	Sprite platform13= new Sprite("platform12","platform.png",0,0,0,0,0,1,1);
+	Sprite platform14= new Sprite("platform13","platform.png",0,0,0,0,0,1,1);
 	
 	boolean isfalling= false;
 	//Sprite platform5= new Sprite("platform","platform.png",0,0,0,0,0,1,1);
 	Sprite rock1= new Sprite("rock1", "rock.png",0,0,0,0,0,1,1);
-	Sprite rock2= new Sprite("rock1", "rock.png",0,0,0,0,0,1,1);
-	Sprite rock3= new Sprite("rock1", "rock.png",0,0,0,0,0,1,1);
-	Sprite rock4= new Sprite("rock1", "rock.png",0,0,0,0,0,1,1);
-	Sprite rock5= new Sprite("rock1", "rock.png",0,0,0,0,0,1,1);
-	Sprite rock6= new Sprite("rock1", "rock.png",0,0,0,0,0,1,1);
-	Sprite rock7= new Sprite("rock1", "rock.png",0,0,0,0,0,1,1);
+	Sprite rock2= new Sprite("rock2", "rock.png",0,0,0,0,0,1,1);
+	Sprite rock3= new Sprite("rock3", "rock.png",0,0,0,0,0,1,1);
+	Sprite rock4= new Sprite("rock4", "rock.png",0,0,0,0,0,1,1);
+	Sprite rock5= new Sprite("rock5", "rock.png",0,0,0,0,0,1,1);
+	Sprite rock6= new Sprite("rock6", "rock.png",0,0,0,0,0,1,1);
+	Sprite rock7= new Sprite("rock7", "rock.png",0,0,0,0,0,1,1);
 	Sprite fireball=new Sprite("fireball", "fireball.png", 0,0,0,0,0,1,1);
 	double tdelta=0;
-	int bb=0;
+	public int bb=0;
 	double tstart=0;
 	double tend=0;
 	int jumpcounter;
@@ -106,47 +93,48 @@ public class Beta extends Game implements MouseListener{
 	boolean on=false;
 	boolean off=true;
 	boolean menuon=false;
-	//Menu buymenu=new Menu("Buy Menu");
+	//Menu buymenu=new Menu();
 	Sprite door= new Sprite("door","door.png",0,0,0,0,0,1,1);
-	Sprite edoor1= new Sprite("door","door.png",0,0,0,0,0,1,1);
-	Sprite edoor2= new Sprite("door","door.png",0,0,0,0,0,1,1);
-
-	Sprite edoor3= new Sprite("door","door.png",0,0,0,0,0,1,1);
-	Sprite finaldoor= new Sprite("door","door.png",0,0,0,0,0,1,1);
-
-	Sprite door1= new Sprite("door","door.png",0,0,0,0,0,1,1);
-	Sprite door2= new Sprite("door","door.png",0,0,0,0,0,1,1);
-	Sprite door3= new Sprite("door","door.png",0,0,0,0,0,1,1);
+	Sprite door1= new Sprite("door1","door.png",0,0,0,0,0,1,1);
+	Sprite door2= new Sprite("door2","door.png",0,0,0,0,0,1,1);
+	Sprite door3= new Sprite("door3","door.png",0,0,0,0,0,1,1);
+	
 	boolean fire=true;
+	Point position1 = new Point(200,600);
+	Point position2 = new Point(2600, 55);
+	Point position3 = new Point(2600, 55);
+	Point position4 = new Point(2600, 55);
 	Rectangle j= new Rectangle();
 	Rectangle b= new Rectangle();
 	Rectangle q= new Rectangle();
 	Rectangle d= new Rectangle();
 	Rectangle a= new Rectangle();
-	boolean destroy=false;
+	int level=1;
 	int start1=0;
 	int start2=0;
 	int start3=0;
 	int start4 =0;
+	boolean destroy=false;
 	public Beta() {
-		super("Beta", 1000, 800);
+		super("Beta", 9000, 800);
 		super.getMainFrame().addMouseListener(this);
-		b.setRect(900,200, 100, 100);
-		q.setRect(700,200,100,100);
-		d.setRect(500,200,100,100);
-		a.setRect(100,200,100,100);
-		j.setRect(300,200,100,100);
+		b.setRect(1000,30, 100, 100);
+		q.setRect(800,30,100,100);
+		d.setRect(600,30,100,100);
+		a.setRect(200,30,100,100);
+		j.setRect(400,30,100,100);
 		door.setScaleX(.1);
 		door.setScaleY(.1);
+		door.setVisible(false);
 		
+		door1.setScaleX(.1);
+		door1.setScaleY(.1);
+		door1.setVisible(false);
 		//mario.setPosition(200, 500);
 		mario.setScaleX(0.6);
 		mario.setScaleY(0.6);
-		
 		//mario.setAlpha(.11);
-		platform4.setScaleX(.1);
-		platform4.setScaleY(.2);
-		platform4.setPosition(300,666);
+		
 		time = new GameClock();
 		mario.getFrames().add("Sonic_standby1.png");
 		mario.getFrames().add("Sonic_standby2.png");
@@ -160,6 +148,8 @@ public class Beta extends Game implements MouseListener{
 		mario.getFrames().add("Sonic_run5.png");
 		mario.getFrames().add("Sonic_run1.png");
 		super.addChild(door);
+		super.addChild(door1);
+		
 		/*buymenu.addItem("Jump", 1);
 		buymenu.addItem("Interact", 2);
 		buymenu.addItem("JetPack", 35);
@@ -179,79 +169,47 @@ public class Beta extends Game implements MouseListener{
 		rupee1.setScaleX(.2);
 		rupee1.setScaleY(.2);
 		
-		rock1.setPosition(150,656);
+		
 		rock1.setScaleX(.2);
 		rock1.setScaleY(.2);
+		
+		rock2.setScaleX(.2);
+		rock2.setScaleY(.2);
 		super.addChild(mario);
-		//level 1
+		
 		super.addChild(platform1);
-		super.addChild(platform10);
+		
+		//super.addChild(offswitch);
+		//super.addChild(onswitch);
+		onswitch.setVisible(false);
+		rupee1.setPosition(600,680);
+		mario.setPosition(position1);
+		
+		super.addChild(platform2);
+		super.addChild(platform3);
+		platform1.setScaleX(.8);
 		super.addChild(platform4);
 		super.addChild(platform5);
 		super.addChild(platform6);
 		super.addChild(platform7);
 		super.addChild(platform8);
-		//level 2
 		super.addChild(platform9);
 		super.addChild(platform10);
 		super.addChild(platform11);
 		super.addChild(platform12);
-		super.addChild(platform13);
-		super.addChild(platform14);
-		super.addChild(platform15);
-		super.addChild(platform16);
-		super.addChild(platform17);
-		super.addChild(rupee2);
-		super.addChild(rupee3);
-		super.addChild(rupee4);
-		super.addChild(rupee5);
-		super.addChild(rupee6);
-		super.addChild(rupee7);
-		super.addChild(rupee8);
-		super.addChild(rupee9);
-		super.addChild(rupee10);
-		platform2.setPosition(500,400);
-		platform3.setPosition(200,400);
-
-		platform4.setPosition(-400,350);
-
-		platform5.setPosition(-600,450);
 		
-		super.addChild(door);
-		door.setPosition(-600,400);
-	
-
-		platform4.setScaleX(.3);
-		platform4.setScaleY(.3);
-		platform5.setScaleX(.8);
-		platform5.setScaleY(.8);
-		platform6.setScaleX(.5);
-		platform6.setScaleY(.5);
-		platform7.setScaleX(.8);
-		platform7.setScaleY(.8);
-		platform8.setScaleX(.3);
-		platform8.setScaleY(.3);
-		platform9.setScaleX(.8);
-		platform9.setScaleY(.8);
-		//super.addChild(offswitch);
-		//super.addChild(onswitch);
-		onswitch.setVisible(false);
-		rupee1.setPosition(600,680);
-		mario.setPosition(200, 600);
-		platform1.setPosition(100, 676);
-		super.addChild(platform2);
-		super.addChild(platform3);
-		platform1.setScaleX(.8);
-		super.addChild(platform4);
-		//super.addChild(platform5);
+		
 		platform3.setScaleY(.5);
-		////platform4.setScaleY(.5);
-		//platform5.setScaleY(.5);
+		platform4.setScaleY(.5);
+		platform5.setScaleY(.5);
 		platform2.setScaleX(.5);
-		platform2.setPosition(400, 550);
-		platform3.setPosition(-100, 396);
-		//platform4.setPosition(500, 396);
-		//platform5.setPosition(40, 296);
+		
+		platform4.setScaleX(.1);
+		platform4.setScaleY(.2);
+		
+		platform8.setScaleX(.1);
+		platform8.setScaleY(.2);	
+		
 		
 		onswitch.setScaleX(.2);
 		onswitch.setScaleY(.2);
@@ -261,11 +219,28 @@ public class Beta extends Game implements MouseListener{
 		//snd.playMusic("loop");
 		//mario.setMass(2);
 		//snd.LoadSoundEffect("jump", "jump.wav");
-		offswitch.setPosition(500, 510);
-		onswitch.setPosition(400,510);
+		offswitch.setPosition(520, 629);
+		onswitch.setPosition(420,629);
 		platform3.setAlpha(.3);
 		super.addChild(fireball);
 		fireball.setVisible(false);
+		//Level 1 Platforms, Switches, Levers, doors
+		platform1.setPosition(100, 676);
+		platform2.setPosition(400, 676);
+		platform3.setPosition(600, 696);
+		platform4.setPosition(300,666);
+		rock1.setPosition(150,656);
+		door.setPosition(400,600);
+		
+		
+		//Level 2 Platforms...
+		platform5.setPosition(2500, 100);
+		platform6.setPosition(3000,200);
+		platform7.setPosition(3050,500);
+		platform8.setPosition(2550,90);
+		rock2.setPosition(3020,80);
+		door1.setPosition(3050, 430);
+		//Level 3 Platforms...
 	}
 	@Override
 	public void draw(Graphics g){
@@ -311,22 +286,6 @@ public class Beta extends Game implements MouseListener{
 		super.update(pressedKeys);
 		cam.setX((int)mario.getPosition().getX()-400);
 		cam.setY((int)mario.getPosition().getY()-400);
-		
-		if( level ==2){
-			
-		}
-		if(level==3){
-			
-		}
-		if(level==4){
-			
-		}
-		if(level==1){
-			
-		}
-		if(reset==true){
-			
-		}
 		//tend=time.getElapsedTime();
 		/*if(pressedKeys.contains(KeyEvent.VK_SHIFT)){
 			fireball.getPosition().setLocation(mario.getPosition().getX(), mario.getPosition().getY());
@@ -349,6 +308,9 @@ public class Beta extends Game implements MouseListener{
 		if(rock1.collidesWith(platform4)){
 			door.setVisible(true);
 		}
+		if(rock2.collidesWith(platform8)){
+			door1.setVisible(true);
+		}
 		if(mario.collidesWith(platform1) &&platform1.getAlpha()>0){
 			isfalling=false;
 			numJumps=1;
@@ -365,6 +327,19 @@ public class Beta extends Game implements MouseListener{
 			isfalling=false;
 			numJumps=1;
 		}
+		if(mario.collidesWith(platform5) && platform5.getAlpha()>0){
+			isfalling=false;
+			numJumps=1;
+		}
+		if(mario.collidesWith(platform6) && platform6.getAlpha()>0){
+			isfalling=false;
+			numJumps=1;
+		}
+		if(mario.collidesWith(platform7) && platform7.getAlpha()>0){
+			isfalling=false;
+			numJumps=1;
+		}
+		
 		if(mario.collidesWith(rupee1)){
 			rupee1.setVisible(false);
 			rupee1.setPosition(1, 200);
@@ -401,7 +376,16 @@ public class Beta extends Game implements MouseListener{
 			
 		}
 		if(mario.getPosition().getY()>=750){
-		mario.setPosition(200,600);
+			if(level==1){
+				mario.setPosition(position1);
+			} else if(level == 2){
+				mario.setPosition(position2);
+			} else if(level == 3){
+				mario.setPosition(position3);
+			} else if(level == 4){
+				mario.setPosition(position4);
+			}
+
 		cam.setX(0);
 		cam.setY(0);
 		}
@@ -410,7 +394,7 @@ public class Beta extends Game implements MouseListener{
 			mario.update(pressedKeys);
 			
 				mario.play("run");
-				if(mario.getPosition().getX()<711){
+				if(mario.getPosition().getX()<8500){
 					mario.setVelX(2);
 					mario.getPosition().setLocation(mario.getPosition().getX()+5,mario.getPosition().getY());
 					/*
@@ -436,9 +420,15 @@ public class Beta extends Game implements MouseListener{
 		else{
 			mario.setVelX(0);
 		}
-		if(pressedKeys.contains(KeyEvent.VK_M)){
-			menuon=true;
-		}
+/*	if(pressedKeys.contains(KeyEvent.VK_M)){
+			this.pause();
+			this.addChild(buymenu);
+			if(buymenu.getOpen() == false){
+				buymenu.setOpen(true);
+			} else if (buymenu.getOpen() == true){
+				buymenu.setOpen(false);
+			}
+		}*/
 		
 		}
 		if(pressedKeys.contains(KeyEvent.VK_A)){
@@ -471,7 +461,7 @@ public class Beta extends Game implements MouseListener{
 		else{
 			mario.setVelX(0);
 		}
-		
+
 		if(pressedKeys.contains(KeyEvent.VK_SPACE)){
 			//if(mario.getAlpha()==1 && x1==1){
 			if(mario.isJumping()|| mario.isJetpacking()){
@@ -544,18 +534,6 @@ public class Beta extends Game implements MouseListener{
 					
 				}
 			}
-			//NEXT AREA
-			if(mario.collidesWith(door)){
-				level=2;
-				start2=1;
-				
-				
-			}
-			if(start2==1){
-				//POSITION OF NEXT LEVEL
-				mario.setPosition(position1);
-				start2=0;
-			}
 			if(x1==1){
 				if(mario.collidesWith(onswitch)){
 					platform3.setAlpha(.5);
@@ -573,6 +551,18 @@ public class Beta extends Game implements MouseListener{
 					y2=1;
 				}
 			}
+			
+			if(mario.collidesWith(door)){
+				level=2;
+				start2=1;
+				
+				
+			}
+			if(start2==1){
+				//POSITION OF NEXT LEVEL
+				mario.setPosition(position2);
+				start2=0;
+			}	
 		}
 			}
 		jugg.update();
