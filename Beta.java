@@ -62,6 +62,11 @@ public class Beta extends Game implements MouseListener{
 	AnimatedSprite rupee27= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
 	AnimatedSprite rupee29= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
 	AnimatedSprite rupee30= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
+	AnimatedSprite rupee31= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
+	AnimatedSprite rupee32= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
+	AnimatedSprite rupee33= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
+	AnimatedSprite rupee34= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
+	AnimatedSprite rupee35= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
 	
 	Sprite platform1= new Sprite("platform","platform.png",0,0,0,0,0,1,1);
 	Tween marios=new Tween(mario);
@@ -75,12 +80,14 @@ public class Beta extends Game implements MouseListener{
 	Sprite onswitch3= new Sprite("On", "switch-lever-on.png",0,0,0,0,0,1,1);
 	Sprite onswitch4 = new Sprite("On", "switch-lever-on.png",0,0,0,0,0,1,1);
 	Sprite onswitch5 = new Sprite("On", "switch-lever-on.png",0,0,0,0,0,1,1);
+	Sprite onswitch6 = new Sprite("On", "switch-lever-on.png",0,0,0,0,0,1,1);
 	Sprite offswitch= new Sprite("off", "switch-level-off.png",0,0,0,0,0,1,1);
 	Sprite offswitch1= new Sprite("off", "switch-level-off.png",0,0,0,0,0,1,1);
 	Sprite offswitch2= new Sprite("off", "switch-level-off.png",0,0,0,0,0,1,1);
 	Sprite offswitch3= new Sprite("off", "switch-level-off.png",0,0,0,0,0,1,1);
 	Sprite offswitch4= new Sprite("off", "switch-level-off.png",0,0,0,0,0,1,1);
 	Sprite offswitch5= new Sprite("off", "switch-level-off.png",0,0,0,0,0,1,1);
+	Sprite offswitch6= new Sprite("off", "switch-level-off.png",0,0,0,0,0,1,1);
 
 	TweenEvent alph1 = new TweenEvent("alph1", this);
 	TweenEvent alph2 = new TweenEvent("alph2",this);
@@ -159,8 +166,8 @@ public class Beta extends Game implements MouseListener{
 	boolean fire=true;
 	Point position1 = new Point(200,600);
 	Point position2 = new Point(2600, 55);
-	Point position3 = new Point(2600, 55);
-	Point position4 = new Point(2600, 55);
+	Point position3 = new Point(5000,200);
+	Point position4 = new Point(10000,200);
 	Rectangle j= new Rectangle();
 	Rectangle b= new Rectangle();
 	Rectangle q= new Rectangle();
@@ -241,6 +248,11 @@ public class Beta extends Game implements MouseListener{
 		super.addChild(rupee28);
 		super.addChild(rupee29);
 		super.addChild(rupee30);
+		super.addChild(rupee31);
+		super.addChild(rupee32);
+		super.addChild(rupee33);
+		super.addChild(rupee34);
+		super.addChild(rupee35);
 		
 		background.setScaleX(8);
 		background.setScaleY(5);
@@ -523,11 +535,58 @@ public class Beta extends Game implements MouseListener{
 		rupee30.getFrames().add("rupee5.png");
 		rupee30.setScaleX(.2);
 		rupee30.setScaleY(.2);
+		
+		rupee31.getFrames().add("rupee1.png");
+		rupee31.getFrames().add("rupee2.png");
+		rupee31.getFrames().add("rupee6.png");
+		rupee31.getFrames().add("rupee3.png");
+		rupee31.getFrames().add("rupee4.png");
+		rupee31.getFrames().add("rupee5.png");
+		rupee31.setScaleX(.2);
+		rupee31.setScaleY(.2);
+		
+		rupee32.getFrames().add("rupee1.png");
+		rupee32.getFrames().add("rupee2.png");
+		rupee32.getFrames().add("rupee6.png");
+		rupee32.getFrames().add("rupee3.png");
+		rupee32.getFrames().add("rupee4.png");
+		rupee32.getFrames().add("rupee5.png");
+		rupee32.setScaleX(.2);
+		rupee32.setScaleY(.2);
+		
+		rupee33.getFrames().add("rupee1.png");
+		rupee33.getFrames().add("rupee2.png");
+		rupee33.getFrames().add("rupee6.png");
+		rupee33.getFrames().add("rupee3.png");
+		rupee33.getFrames().add("rupee4.png");
+		rupee33.getFrames().add("rupee5.png");
+		rupee33.setScaleX(.2);
+		rupee33.setScaleY(.2);
+		
+		rupee34.getFrames().add("rupee1.png");
+		rupee34.getFrames().add("rupee2.png");
+		rupee34.getFrames().add("rupee6.png");
+		rupee34.getFrames().add("rupee3.png");
+		rupee34.getFrames().add("rupee4.png");
+		rupee34.getFrames().add("rupee5.png");
+		rupee34.setScaleX(.2);
+		rupee34.setScaleY(.2);
+		
+		rupee35.getFrames().add("rupee1.png");
+		rupee35.getFrames().add("rupee2.png");
+		rupee35.getFrames().add("rupee6.png");
+		rupee35.getFrames().add("rupee3.png");
+		rupee35.getFrames().add("rupee4.png");
+		rupee35.getFrames().add("rupee5.png");
+		rupee35.setScaleX(.2);
+		rupee35.setScaleY(.2);
+		
 		rock1.setScaleX(.2);
 		rock1.setScaleY(.2);
 		
 		rock2.setScaleX(.2);
 		rock2.setScaleY(.2);
+		rock2.setVisible(true);
 		super.addChild(mario);
 		
 		super.addChild(platform1);
@@ -577,6 +636,10 @@ public class Beta extends Game implements MouseListener{
 		onswitch2.setScaleY(.2);
 		offswitch2.setScaleX(.2);
 		offswitch2.setScaleY(.2);
+		onswitch.setScaleX(.2);
+		onswitch.setScaleY(.2);
+		offswitch6.setScaleX(.2);
+		offswitch6.setScaleY(.2);
 		snd.loadMusic("loop", "8-bit Detective.wav");
 		snd.playMusic("loop");
 		//mario.setMass(2);
@@ -614,9 +677,20 @@ public class Beta extends Game implements MouseListener{
 		platform8.setPosition(2550,90);
 		platform8.setScaleX(.2);
 		platform8.setScaleY(.2);
-		rock2.setPosition(3020,200);
+		rupee5.setPosition(2650, 80);
+		rupee6.setPosition(3060, 250);
+		rupee7.setPosition(3000, 100);
+		rupee8.setPosition(3075, 400);
+		rupee9.setPosition(3065, 350);
+		offswitch6.setPosition(3020,200);
+		onswitch6.setPosition(2820, 200);
 		door1.setPosition(3050, 430);
-		super.addChild(rock2);
+		
+		super.addChild(offswitch6);
+		super.addChild(onswitch6);
+		onswitch6.setVisible(false);
+		
+		
 		super.addChild(door1);
 		
 		//Level 3 Platforms...
@@ -654,6 +728,7 @@ public class Beta extends Game implements MouseListener{
 		
 		super.addChild(offswitch2);
 		super.addChild(onswitch2);
+		
 		onswitch2.setPosition(6800,250);
 		onswitch2.setScaleX(.2);
 		offswitch2.setPosition(7000,250);
@@ -712,8 +787,20 @@ public class Beta extends Game implements MouseListener{
 			offswitch.draw(g);
 		}
 		
+		if(onswitch6.isVisible()){
+			onswitch6.draw(g);
+			door1.setVisible(true);
+		}
+		if(offswitch6.isVisible()){
+			offswitch.draw(g);
+		}
+		
 		if(rock1.isVisible()){
 		rock1.draw(g);}
+		
+		if(rock2.isVisible()){
+			rock2.draw(g);
+		}
 		
 		if(rupee1.isVisible()){
 		rupee1.draw(g);
@@ -1377,6 +1464,10 @@ public class Beta extends Game implements MouseListener{
 			rock1.setPosition(mario.getPosition().getX(), mario.getPosition().getY()+50);
 			y2=0;
 			}
+			
+			if(y2==1){
+				rock2.setPosition(mario.getPosition().getX(), mario.getPosition().getY()+50);
+			}
 		}
 		if(pressedKeys.contains(KeyEvent.VK_F)){
 			if(mario.interact()==true){
@@ -1390,6 +1481,16 @@ public class Beta extends Game implements MouseListener{
 					x1=0;
 					
 				}
+				if(mario.collidesWith(offswitch6)){
+					door1.setVisible(true);
+					off=false;
+					on=true;
+					offswitch6.setVisible(false);
+					onswitch6.setVisible(true);
+					x1=0;
+					
+				}
+				
 			}
 			if(x1==1){
 				if(mario.collidesWith(onswitch)){
@@ -1400,11 +1501,24 @@ public class Beta extends Game implements MouseListener{
 					onswitch.setVisible(false);
 					x1=0;
 				}
+				if(mario.collidesWith(onswitch6)){
+					door1.setVisible(false);
+					on=false;
+					off=true;
+					offswitch6.setVisible(true);
+					onswitch6.setVisible(false);
+					x1=0;
+				}
 			}
 			if(y1==1){
 				if(mario.collidesWith(rock1)){
 					
 					rock1.setPosition(mario.getPosition().getX(), mario.getPosition().getY()-20);
+					y2=1;
+				}
+				
+				if(mario.collidesWith(rock2)){
+					rock2.setPosition(mario.getPosition().getX(), mario.getPosition().getY()-20);
 					y2=1;
 				}
 			}
@@ -1415,11 +1529,30 @@ public class Beta extends Game implements MouseListener{
 				
 				
 			}
+			if(mario.collidesWith(door1)){
+				level=3;
+				start3=1;
+				
+				
+			}
+			if(mario.collidesWith(door2)){
+				level=4;
+				start4=1
+			}
+			
 			if(start2==1){
 				//POSITION OF NEXT LEVEL
 				mario.setPosition(position2);
 				start2=0;
-			}	
+			}
+			if(start3 == 1){
+				mario.setPosition(position3);
+				start3=0;
+			}
+			if(start4==1){
+				mario.setPosition(position4);
+				start4=0;
+			}
 		}
 			}
 		jugg.update();
@@ -1496,4 +1629,3 @@ public class Beta extends Game implements MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
-}
