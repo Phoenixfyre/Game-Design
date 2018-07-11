@@ -30,6 +30,7 @@ import edu.virginia.engine.tweening.TweenableParam;
 import edu.virginia.engine.util.GameClock;
 import edu.virginia.engine.util.SoundManager;
 public class Beta extends Game implements MouseListener{
+	boolean gamestart=false;
 	public Protagonist mario = new Protagonist("Mario", "Sonic_standby1.png",0,0,0,0,0,1,1);
 	AnimatedSprite rupee1= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
 	AnimatedSprite rupee2= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
@@ -61,7 +62,7 @@ public class Beta extends Game implements MouseListener{
 	AnimatedSprite rupee27= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
 	AnimatedSprite rupee29= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
 	AnimatedSprite rupee30= new AnimatedSprite("coin", "rupee1.png", 0,300,300,0,0,1,1);
-
+	
 	Sprite platform1= new Sprite("platform","platform.png",0,0,0,0,0,1,1);
 	Tween marios=new Tween(mario);
 	public Tween plat= new Tween(platform1);
@@ -85,6 +86,12 @@ public class Beta extends Game implements MouseListener{
 	TweenEvent alph2 = new TweenEvent("alph2",this);
 	TweenEvent size= new TweenEvent("size",this);
 	Boolean up=true;
+	boolean side1=true;
+	boolean side2=true;
+	boolean diag1=true;
+	boolean diag2 = true;
+	boolean side3=true;
+	boolean diag3=true;
 	Camera cam = new Camera();
 	Sprite platform2= new Sprite("platform1","platform.png",0,0,0,0,0,1,1);
 	Sprite platform3= new Sprite("platform2","platform.png",0,0,0,0,0,1,1);
@@ -165,9 +172,11 @@ public class Beta extends Game implements MouseListener{
 	int start3=0;
 	int start4 =0;
 	boolean destroy=false;
+	Sprite background= new Sprite("Background", "background1.png",0,0,0,0,0,1,1);
 	public Beta() {
 		super("Beta", 800, 800);
 		super.getMainFrame().addMouseListener(this);
+		
 		b.setRect(1000,30, 100, 100);
 		q.setRect(800,30,100,100);
 		d.setRect(600,30,100,100);
@@ -180,6 +189,10 @@ public class Beta extends Game implements MouseListener{
 		door1.setScaleX(.1);
 		door1.setScaleY(.1);
 		door1.setVisible(false);
+		door2.setScaleX(.1);
+		door2.setScaleY(.1);
+		door3.setScaleX(.1);
+		door3.setScaleY(.1);
 		//mario.setPosition(200, 500);
 		mario.setScaleX(0.6);
 		mario.setScaleY(0.6);
@@ -228,39 +241,11 @@ public class Beta extends Game implements MouseListener{
 		super.addChild(rupee28);
 		super.addChild(rupee29);
 		super.addChild(rupee30);
-		rupee2.setPosition(10,100);
-		rupee3.setPosition(20,100);
-		rupee4.setPosition(30,100);
-		rupee5.setPosition(40,100);
 		
-		rupee6.setPosition(50,100);
-		rupee7.setPosition(60,100);
-		rupee8.setPosition(70,100);
-		rupee9.setPosition(80,100);
-		rupee10.setPosition(90,100);
-
-		rupee11.setPosition(10,110);
-		rupee12.setPosition(10,120);
-		rupee13.setPosition(10,130);
-		rupee14.setPosition(10,140);
-		rupee15.setPosition(10,150);
-		rupee16.setPosition(10,160);
-		rupee17.setPosition(10,170);
-		rupee18.setPosition(10,180);
-		rupee19.setPosition(10,190);
-		rupee20.setPosition(10,200);
+		background.setScaleX(8);
+		background.setScaleY(5);
+		background.setPosition(-2000,-900);
 		
-		rupee21.setPosition(10,300);
-		rupee22.setPosition(10,400);
-		rupee23.setPosition(10,500);
-		rupee24.setPosition(10,600);
-		rupee25.setPosition(10,700);
-		rupee26.setPosition(10,800);
-		rupee27.setPosition(10,900);
-		rupee28.setPosition(10,1000);
-		rupee29.setPosition(10,1010);
-		rupee30.setPosition(10,1020);
-
 		/*buymenu.addItem("Jump", 1);
 		buymenu.addItem("Interact", 2);
 		buymenu.addItem("JetPack", 35);
@@ -550,7 +535,7 @@ public class Beta extends Game implements MouseListener{
 		//super.addChild(offswitch);
 		//super.addChild(onswitch);
 		onswitch.setVisible(false);
-		rupee1.setPosition(600,680);
+		
 		
 		
 		super.addChild(platform2);
@@ -565,7 +550,17 @@ public class Beta extends Game implements MouseListener{
 		super.addChild(platform10);
 		super.addChild(platform11);
 		super.addChild(platform12);
-		
+		super.addChild(platform13);
+		super.addChild(platform14);
+		super.addChild(platform15);
+		super.addChild(platform16);
+		super.addChild(platform17);
+		super.addChild(platform18);
+		super.addChild(platform19);
+		super.addChild(platform20);
+		super.addChild(platform21);
+		super.addChild(platform22);
+
 		
 		
 		
@@ -574,6 +569,14 @@ public class Beta extends Game implements MouseListener{
 		onswitch.setScaleY(.2);
 		offswitch.setScaleX(.2);
 		offswitch.setScaleY(.2);
+		onswitch1.setScaleX(.2);
+		onswitch1.setScaleY(.2);
+		offswitch1.setScaleX(.2);
+		offswitch1.setScaleY(.2);
+		onswitch2.setScaleX(.2);
+		onswitch2.setScaleY(.2);
+		offswitch2.setScaleX(.2);
+		offswitch2.setScaleY(.2);
 		snd.loadMusic("loop", "8-bit Detective.wav");
 		snd.playMusic("loop");
 		//mario.setMass(2);
@@ -584,17 +587,26 @@ public class Beta extends Game implements MouseListener{
 		super.addChild(fireball);
 		fireball.setVisible(false);
 		//Level 1 Platforms, Switches, Levers, doors
+		mario.setPosition(position1);
 		platform1.setPosition(100, 676);
 		platform2.setPosition(-100, 676);
 		platform2.setAlpha(0);
 		platform3.setPosition(-700, 296);
-		platform4.setPosition(900,466);
+		platform4.setPosition(-250,266);
+		platform4.setScaleX(.7);
+		platform4.setScaleY(.2);
 		rock1.setPosition(150,656);
-		door.setPosition(400,600);
+		door.setPosition(-230,180);
+		door.setVisible(true);
 		platform1.setScaleX(2);
 		platform1.setScaleY(.5);
 		platform2.setScaleX(.5);
 		platform2.setScaleY(.5);
+		rupee2.setPosition(200,600);
+		rupee3.setPosition(300,600);
+		rupee4.setPosition(400,600);
+		rupee1.setPosition(500,600);
+		
 		//Level 2 Platforms...
 		platform5.setPosition(2500, 100);
 		platform6.setPosition(3000,200);
@@ -606,27 +618,92 @@ public class Beta extends Game implements MouseListener{
 		door1.setPosition(3050, 430);
 		super.addChild(rock2);
 		super.addChild(door1);
+		
 		//Level 3 Platforms...
+		rupee10.setPosition(6700,250);
+		rupee11.setPosition(6800,250);
+		rupee12.setPosition(6900,250);
+		rupee13.setPosition(7000,250);
+		rupee14.setPosition(6000,650);
+		rupee15.setPosition(5700,650);
+		rupee16.setPosition(5800,650);
+		rupee17.setPosition(5900,650);
+		rupee18.setPosition(5100,150);
+		rupee19.setPosition(5000,150);
+		rupee20.setPosition(5200,150);
+
+		rupee30.setPosition(6700,200);
+		platform9.setPosition(5000,200);
+		
+		platform12.setPosition(5600,300);
+		platform13.setPosition(5700,700);
+		//platform14 moving left to right
+		platform14.setPosition(5300,500);
+		platform15.setPosition(6000,300);
+		platform16.setPosition(6000,750);
+		platform17.setPosition(6700,300);
+		platform17.setScaleX(1.5);
+		platform15.setScaleX(.5);
+		platform15.setScaleY(.5);
+		platform16.setScaleX(.5);
+		platform16.setScaleY(.5);
+		door2.setPosition(5350,420);
+		platform14.setScaleY(.3);
+		super.addChild(door2);
+		super.addChild(door3);
+		
+		super.addChild(offswitch2);
+		super.addChild(onswitch2);
+		onswitch2.setPosition(6800,250);
+		onswitch2.setScaleX(.2);
+		offswitch2.setPosition(7000,250);
+		onswitch2.setVisible(false);
+		
+		//level 4 platforms
+		rupee21.setPosition(10000,350);
+		rupee22.setPosition(10100,350);
+		rupee23.setPosition(10200,350);
+		rupee24.setPosition(10300,350);
+		rupee25.setPosition(10400,150);
+		rupee26.setPosition(10500,150);
+		rupee27.setPosition(10800,100);
+		rupee28.setPosition(10600,150);
+		rupee29.setPosition(10700,150);
+		rupee30.setPosition(10000,250);
+		platform18.setPosition(10000, 400);
+		platform19.setScaleY(.5);
+		platform22.setScaleY(.5);
+		platform19.setPosition(10600,200);
+		platform20.setPosition(10800,700);
+		platform21.setPosition(11000,250);
+		platform22.setPosition(10300,310);
+		door3.setPosition(11110,0);
+		door3.setScaleY(.3);
+		door3.setScaleX(.3);
 	}
 	@Override
 	public void draw(Graphics g){
 		//g.drawString("Health Left:", 670, 30);
-		g.drawString("total coins ="+ mario.getTotalCoins(), 20, 20);
-		g.drawString("Jump=5coins",(int)q.getCenterX()-40, (int)q.getCenterY());
-		g.drawString("JetPack=5coins",(int)a.getCenterX()-40, (int)a.getCenterY());
-		g.drawString("Interact=5coins",(int)j.getCenterX()-40, (int)j.getCenterY());
-		g.drawString("EndDisapear=5coins",(int)d.getCenterX()-40, (int)d.getCenterY());
-		
+		if(gamestart==false){
+		g.drawString("Press H to start game", 500, 500);
+		}
+		if(gamestart==true){
+	
 		Graphics2D g2d = (Graphics2D)g;
+		
+		cam.draw(g);
+		super.draw(g);
 		g2d.draw(q);;
 		g2d.draw(a);
 	
 		g2d.draw(d);
 		g2d.draw(j);
 		
-		cam.draw(g);
-		super.draw(g);
-		
+		g.drawString("total coins ="+ mario.getTotalCoins(), (int)mario.getPosition().getX()-200, (int)mario.getPosition().getY()-200);
+		g.drawString("Jump=5coins",(int)q.getCenterX()-40, (int)q.getCenterY());
+		g.drawString("JetPack=5coins",(int)a.getCenterX()-40, (int)a.getCenterY());
+		g.drawString("Interact=5coins",(int)j.getCenterX()-40, (int)j.getCenterY());
+		g.drawString("EndDisapear=5coins",(int)d.getCenterX()-40, (int)d.getCenterY());
 		if(onswitch.isVisible()){
 			onswitch.draw(g);
 			platform2.setAlpha(1);
@@ -641,8 +718,11 @@ public class Beta extends Game implements MouseListener{
 		if(rupee1.isVisible()){
 		rupee1.draw(g);
 		}
+		}
 		
 		
+		//g.drawString("You can buy abilities through using the m key", 400, 200);
+
 		//g2d.draw(mario.getGlobalHitbox());
 		//g2d.draw(rupee1.getGlobalHitbox());
 		
@@ -652,6 +732,16 @@ public class Beta extends Game implements MouseListener{
 	}
 	@Override
 	public void update(ArrayList<Integer> pressedKeys){
+		if(pressedKeys.contains(KeyEvent.VK_H)){
+			gamestart=true;
+		}
+		
+		if(pressedKeys.contains(KeyEvent.VK_I)){
+			mario.setPosition(5000,200);
+		}
+		if(pressedKeys.contains(KeyEvent.VK_P)){
+			mario.setPosition(10000,200);
+		}
 		if(platform2.getPosition().getY()>400 &&up==true){
 			platform2.setPosition(platform2.getPosition().getX()-2,platform2.getPosition().getY()-2);
 			if(mario.collidesWith(platform2)){
@@ -671,6 +761,25 @@ public class Beta extends Game implements MouseListener{
 			up=true;
 		}
 		
+		
+		if(platform16.getPosition().getY()>200 &&diag1==true){
+			platform16.setPosition(platform16.getPosition().getX()+2,platform16.getPosition().getY()-2);
+			if(mario.collidesWith(platform16)){
+				mario.setPosition(mario.getPosition().getX()+2,mario.getPosition().getY()-2);
+			}
+		}
+		else{
+			diag1=false;
+		}
+		if(diag1==false){
+			platform16.setPosition(platform16.getPosition().getX()-2,platform16.getPosition().getY()+2);
+			if(mario.collidesWith(platform16)){
+				mario.setPosition(mario.getPosition().getX()-2,mario.getPosition().getY()+2);
+			}
+		}
+		if(platform16.getPosition().getY()>700){
+			diag1=true;
+		}
 		super.update(pressedKeys);
 		cam.setX((int)mario.getPosition().getX()-400);
 		cam.setY((int)mario.getPosition().getY()-400);
@@ -838,7 +947,7 @@ public class Beta extends Game implements MouseListener{
 			
 					
 		}
-				
+			
 		if(mario.collidesWith(platform3) && platform3.getAlpha()==1){
 			isfalling=false;
 			numJumps=1;
@@ -884,7 +993,7 @@ public class Beta extends Game implements MouseListener{
 			isfalling=false;
 			numJumps=1;
 		}
-		/*if(mario.collidesWith(platform15) &&platform15.getAlpha()>0){
+		if(mario.collidesWith(platform15) &&platform15.getAlpha()>0){
 			isfalling=false;
 			numJumps=1;
 		}
@@ -892,16 +1001,191 @@ public class Beta extends Game implements MouseListener{
 			isfalling=false;
 			numJumps=1;
 		}
-		*/
-		if(mario.collidesWith(rupee1)){
+		
+		if(mario.collidesWith(rupee1)&&rupee1.isVisible()){
 			rupee1.setVisible(false);
-			rupee1.setPosition(1, 200);
+			//rupee1.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee2)&&rupee2.isVisible()){
+			rupee2.setVisible(false);
+			//rupee2.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee3)&&rupee3.isVisible()){
+			rupee3.setVisible(false);
+			//rupee3.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee4)&&rupee4.isVisible()){
+			rupee4.setVisible(false);
+			//rupee4.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee5)&&rupee5.isVisible()){
+			rupee5.setVisible(false);
+			//rupee5.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee6)&&rupee6.isVisible()){
+			rupee6.setVisible(false);
+			//rupee6.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee7)&&rupee7.isVisible()){
+			rupee7.setVisible(false);
+			//rupee7.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee8)&&rupee8.isVisible()){
+			rupee8.setVisible(false);
+			//rupee8.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee9)&&rupee9.isVisible()){
+			rupee9.setVisible(false);
+			//rupee9.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee10)&&rupee10.isVisible()){
+			rupee10.setVisible(false);
+			//rupee10.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee11)&&rupee11.isVisible()){
+			rupee11.setVisible(false);
+			//rupee11.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee12)&&rupee12.isVisible()){
+			rupee12.setVisible(false);
+			rupee12.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee13)&&rupee13.isVisible()){
+			rupee13.setVisible(false);
+			//rupee13.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee15)&&rupee15.isVisible()){
+			rupee14.setVisible(false);
+			//rupee14.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee14)&&rupee14.isVisible()){
+			rupee15.setVisible(false);
+			//rupee15.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee16)&&rupee16.isVisible()){
+			rupee16.setVisible(false);
+			//rupee16.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee17)&&rupee17.isVisible()){
+			rupee17.setVisible(false);
+			//rupee17.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee18)&&rupee18.isVisible()){
+			rupee18.setVisible(false);
+			//rupee18.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee19)&&rupee19.isVisible()){
+			rupee19.setVisible(false);
+			//rupee19.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee20)&&rupee20.isVisible()){
+			rupee20.setVisible(false);
+			//rupee20.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee21)&&rupee21.isVisible()){
+			rupee21.setVisible(false);
+			//rupee21.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee22)&&rupee22.isVisible()){
+			rupee22.setVisible(false);
+			//rupee22.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee23)&&rupee23.isVisible()){
+			rupee23.setVisible(false);
+			//rupee23.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee24)&&rupee24.isVisible()){
+			rupee24.setVisible(false);
+			//rupee24.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee25)&&rupee25.isVisible()){
+			rupee25.setVisible(false);
+			//rupee25.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee26)&&rupee26.isVisible()){
+			rupee26.setVisible(false);
+			//rupee26.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee27)&&rupee27.isVisible()){
+			rupee27.setVisible(false);
+			//rupee27.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee28)&&rupee28.isVisible()){
+			rupee28.setVisible(false);
+			//rupee28.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee29)&&rupee29.isVisible()){
+			rupee29.setVisible(false);
+			//rupee29.setPosition(1, 200);
+			mario.addCoin();
+			
+		}
+		if(mario.collidesWith(rupee30) &&rupee30.isVisible()){
+			rupee30.setVisible(false);
+			//rupee30.setPosition(1, 200);
 			mario.addCoin();
 			
 		}
 		
+		
 		if(numJumps==1){
-			mario.setVelY(0);
+			//mario.setVelY(0);
 		}
 		
 		//mario.setForceY(0);
@@ -962,10 +1246,14 @@ public class Beta extends Game implements MouseListener{
 			cam.setX(cam.getX()+5);
 			mario.update(pressedKeys);
 			
+		
 				mario.play("run");
 				if(mario.getPosition().getX()<8500){
 					mario.setVelX(2);
 					mario.getPosition().setLocation(mario.getPosition().getX()+5,mario.getPosition().getY());
+					
+				
+					
 					/*
 					if(mario.collidesWith(platform2) && mario.getVelocityX()>0){
 						mario.getPosition().setLocation(mario.getPosition().getX()-5,mario.getPosition().getY());
@@ -1034,7 +1322,7 @@ public class Beta extends Game implements MouseListener{
 		if(pressedKeys.contains(KeyEvent.VK_SPACE)){
 			//if(mario.getAlpha()==1 && x1==1){
 			if(mario.isJumping()|| mario.isJetpacking()){
-			
+				
 				//snd.PlaySoundEffect("jump");
 				mario.play("run");
 				if(mario.getPosition().getY()>0){
