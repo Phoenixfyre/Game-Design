@@ -2167,7 +2167,7 @@ public class Beta extends Game implements MouseListener{
 					}
 				// GET HELP HERE
 				if(numJumps==4){
-					mario.setVelY(2);
+					mario.setVelY(8);
 					
 					
 					
@@ -2216,7 +2216,7 @@ public class Beta extends Game implements MouseListener{
 		if(!pressedKeys.contains(KeyEvent.VK_SPACE)){
 			jumper=1;
 			if(numJumps==4 || numJumps==3){
-				mario.setVelY(2);
+				mario.setVelY(8);
 			
 			frames=0;
 			jumpcounter=0;
