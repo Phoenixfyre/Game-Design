@@ -1,6 +1,7 @@
 package edu.virginia.lab3test;
 
 import java.awt.Graphics;
+
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -21,14 +22,15 @@ import edu.virginia.engine.display.Protagonist;
 import edu.virginia.engine.display.Sprite;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.events.EventDispatcher;
+import edu.virginia.engine.events.IEventDispatcher;
 import edu.virginia.engine.events.IEventListener;
-import edu.virginia.engine.events.QuestManager;
 import edu.virginia.engine.tweening.Tween;
 import edu.virginia.engine.tweening.TweenEvent;
 import edu.virginia.engine.tweening.TweenJuggler;
 import edu.virginia.engine.tweening.TweenableParam;
 import edu.virginia.engine.util.GameClock;
 import edu.virginia.engine.util.SoundManager;
+
 public class Beta extends Game implements MouseListener{
 	boolean gamestart=false;
 	public Protagonist mario = new Protagonist("Mario", "Sonic_standby1.png",0,0,0,0,0,1,1);
@@ -157,14 +159,16 @@ public class Beta extends Game implements MouseListener{
 	boolean on=false;
 	boolean off=true;
 	boolean menuon=false;
-	//Menu buymenu=new Menu();
+	//Make a menu object!
+	Menu buymenu=new Menu("BuyMenu");
+	boolean endgame=false;
 	Sprite door= new Sprite("door","door.png",0,0,0,0,0,1,1);
 	Sprite door1= new Sprite("door1","door.png",0,0,0,0,0,1,1);
 	Sprite door2= new Sprite("door2","door.png",0,0,0,0,0,1,1);
 	Sprite door3= new Sprite("door3","door.png",0,0,0,0,0,1,1);
 	
 	boolean fire=true;
-	Point position1 = new Point(200,600);
+	Point position1 = new Point(200,300);
 	Point position2 = new Point(2600, 55);
 	Point position3 = new Point(5000,200);
 	Point position4 = new Point(10000,200);
@@ -179,7 +183,7 @@ public class Beta extends Game implements MouseListener{
 	int start3=0;
 	int start4 =0;
 	boolean destroy=false;
-	Sprite background= new Sprite("Background", "background1.png",0,0,0,0,0,1,1);
+	//Sprite background= new Sprite("Background", "background1.png",0,0,0,0,0,1,1);
 	public Beta() {
 		super("Beta", 800, 800);
 		super.getMainFrame().addMouseListener(this);
@@ -254,9 +258,9 @@ public class Beta extends Game implements MouseListener{
 		super.addChild(rupee34);
 		super.addChild(rupee35);
 		
-		background.setScaleX(8);
+	/*	background.setScaleX(8);
 		background.setScaleY(5);
-		background.setPosition(-2000,-900);
+		background.setPosition(-2000,-900);*/
 		
 		/*buymenu.addItem("Jump", 1);
 		buymenu.addItem("Interact", 2);
@@ -640,8 +644,8 @@ public class Beta extends Game implements MouseListener{
 		onswitch.setScaleY(.2);
 		offswitch6.setScaleX(.2);
 		offswitch6.setScaleY(.2);
-		snd.loadMusic("loop", "8-bit Detective.wav");
-		snd.playMusic("loop");
+		//snd.loadMusic("loop", "8-bit Detective.wav");
+		//snd.playMusic("loop");
 		//mario.setMass(2);
 		//snd.LoadSoundEffect("jump", "jump.wav");
 		offswitch.setPosition(520, 629);
@@ -766,10 +770,18 @@ public class Beta extends Game implements MouseListener{
 	
 		Graphics2D g2d = (Graphics2D)g;
 		
+		//This line was here for me to see if I could get the menu object to draw at all
+		//buymenu.draw(g);
+		
+		//So that the menu object will only be drawn when 'M' is pressed by checking the boolean statement 
+		if(buymenu.getOpen() == true){
+			buymenu.draw(g);
+		}
+	
 		cam.draw(g);
 		super.draw(g);
 		g2d.draw(q);;
-		g2d.draw(a);
+		/*g2d.draw(a);
 	
 		g2d.draw(d);
 		g2d.draw(j);
@@ -778,7 +790,12 @@ public class Beta extends Game implements MouseListener{
 		g.drawString("Jump=5coins",(int)q.getCenterX()-40, (int)q.getCenterY());
 		g.drawString("JetPack=5coins",(int)a.getCenterX()-40, (int)a.getCenterY());
 		g.drawString("Interact=5coins",(int)j.getCenterX()-40, (int)j.getCenterY());
-		g.drawString("EndDisapear=5coins",(int)d.getCenterX()-40, (int)d.getCenterY());
+		g.drawString("EndDisapear=5coins",(int)d.getCenterX()-40, (int)d.getCenterY());*/
+		
+		g.drawString("EndGame = 20coins", (int)door3.getPosition().getX()-20, (int)door3.getPosition().getY());
+		if(endgame == true){
+			g.drawString("GAME OVER",(int)door3.getPosition().getX()-120, (int)door3.getPosition().getY()-50);
+		}
 		if(onswitch.isVisible()){
 			onswitch.draw(g);
 			platform2.setAlpha(1);
@@ -805,6 +822,10 @@ public class Beta extends Game implements MouseListener{
 		if(rupee1.isVisible()){
 		rupee1.draw(g);
 		}
+		
+		/*if(buymenu.getOpen() == true){
+			buymenu.draw(g);
+		}*/
 		}
 		
 		
@@ -817,8 +838,10 @@ public class Beta extends Game implements MouseListener{
 		
 		
 	}
+	
 	@Override
 	public void update(ArrayList<Integer> pressedKeys){
+		
 		if(pressedKeys.contains(KeyEvent.VK_H)){
 			gamestart=true;
 		}
@@ -1030,9 +1053,7 @@ public class Beta extends Game implements MouseListener{
 		
 		if(mario.collidesWith(platform2) && platform2.getAlpha()>0){
 			isfalling=false;
-			numJumps=1;
-			
-					
+			numJumps=1;		
 		}
 			
 		if(mario.collidesWith(platform3) && platform3.getAlpha()==1){
@@ -1364,15 +1385,21 @@ public class Beta extends Game implements MouseListener{
 		else{
 			mario.setVelX(0);
 		}
-/*	if(pressedKeys.contains(KeyEvent.VK_M)){
+		
+	//This is the Key Event to activate the menu. None of the key events are working for me 
+	//even when the menu is included at all so I don't think my computer is working properly.
+		if(pressedKeys.contains(KeyEvent.VK_M)){
+		System.out.println("M");
 			this.pause();
 			this.addChild(buymenu);
 			if(buymenu.getOpen() == false){
 				buymenu.setOpen(true);
-			} else if (buymenu.getOpen() == true){
+				System.out.println("Open");
+			}
+			if(buymenu.getOpen() == true){
 				buymenu.setOpen(false);
 			}
-		}*/
+		}
 		
 		}
 		if(pressedKeys.contains(KeyEvent.VK_A)){
@@ -1537,7 +1564,10 @@ public class Beta extends Game implements MouseListener{
 			}
 			if(mario.collidesWith(door2)){
 				level=4;
-				start4=1
+				start4=1;
+			}
+			if(mario.collidesWith(door3)){
+				endgame = true;
 			}
 			
 			if(start2==1){
@@ -1554,9 +1584,9 @@ public class Beta extends Game implements MouseListener{
 				start4=0;
 			}
 		}
-			}
+	}
 		jugg.update();
-		}
+}
 	
 	
 	public static void main(String[] args) {
@@ -1566,6 +1596,41 @@ public class Beta extends Game implements MouseListener{
 
 	}
 
+	// Modified the quest manager class to include boolean statements for if the item is currently purchased or not
+	public class QuestManager implements IEventListener {
+		
+		@Override
+		public void handleEvent(Event event) {
+			if(event.getEventType().equals(BetaEvents.INTERACT_BOUGHT)){
+				mario.setinteract(true);
+				mario.minusTotalCoins(5);
+				buymenu.setinterBght(true);
+			}
+			if(event.getEventType().equals(BetaEvents.JUMP_BOUGHT)){
+				mario.setJump(true);
+				mario.minusTotalCoins(1);
+				buymenu.setjmpBght(true);
+			}
+			if(event.getEventType().equals(BetaEvents.JETPACK_BOUGHT)){
+				mario.setJetpack(true);
+				mario.minusTotalCoins(5);
+				buymenu.setjtpkBght(true);
+			}
+			if(event.getEventType().equals(BetaEvents.FLY_BOUGHT)){
+				buymenu.setflyBght(true);
+				mario.minusTotalCoins(5);
+			}
+		}
+	};
+	
+	public static class BetaEvents {
+		public static final String JETPACK_BOUGHT = "Jetpack bought";
+		public static final String FLY_BOUGHT = "Fly bought";
+		public static final String JUMP_BOUGHT = "Jump bought";
+		public static final String INTERACT_BOUGHT = "Interact bought";
+		public static final String SWITCH_ON = "Switch on, door visible";
+	};
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -1629,3 +1694,4 @@ public class Beta extends Game implements MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
+}
